@@ -1,0 +1,3440 @@
+{
+	"info": {
+		"_postman_id": "35eada94-4a5f-4e6d-b21b-d757cfd294c5",
+		"name": "GLPI REST API documentation",
+		"description": "# 📄 Get started here\n\nThis template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n## 🔖 How to use this template\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://postman.postman.co/workspace/Collection-Templates~6311738d-2e70-441f-ae12-78caf078c5b7/collection/22517504-e9c28f47-1253-44af-a2f3-20dce4da1f18?ctx=documentation#rate-and-usage-limits).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18864989",
+		"_collection_link": "https://ojauum.postman.co/workspace/Public~6f38cb3f-85b1-4aa8-90d5-734b1f6b45dc/collection/18864989-35eada94-4a5f-4e6d-b21b-d757cfd294c5?action=share&source=collection_link&creator=18864989"
+	},
+	"item": [
+		{
+			"name": "init session with user token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"session_token\", jsonData.session_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "user_token TOKEN",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/initSession?get_full_session=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"initSession"
+					],
+					"query": [
+						{
+							"key": "get_full_session",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Request a session token to uses other API endpoints."
+			},
+			"response": []
+		},
+		{
+			"name": "init session with credentials",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"session_token\", jsonData.session_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "sfa_dev",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sfa_dev",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/initSession?get_full_session=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"initSession"
+					],
+					"query": [
+						{
+							"key": "get_full_session",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Request a session token to uses other API endpoints."
+			},
+			"response": []
+		},
+		{
+			"name": "add user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"input\":\r\n    {\r\n        \r\n        \"name\": \"111180576\",\r\n        \"mobile\": \"\",\r\n        \"realname\": \"SFA Test User 4\",\r\n        \"firstname\": \"111180576\",\r\n        \"is_active\": \"1\",\t\r\n        \"usercategories_id\": \"SFA Users\",\t\r\n        \"//id\": 135,\r\n        \"//password_last_update\": \"2023-12-05 04:11:03\",\r\n        \"//phone\": \"\",\r\n        \"//phone2\": \"\",\r\n        \"//locations_id\": 0,\r\n        \"//language\": null,\r\n        \"//use_mode\": 0,\r\n        \"//list_limit\": null,\r\n        \"//comment\": \"\",\r\n        \"//auths_id\": 0,\r\n        \"//authtype\": 1,\r\n        \"//last_login\": \"2023-12-06 03:34:06\",\r\n        \"//date_mod\": \"2023-12-06 04:40:30\",\r\n        \"//date_sync\": null,\r\n        \"//is_deleted\": 0,\r\n        \"//profiles_id\": 0,\r\n        \"//entities_id\": \"SKMRM\",\r\n        \"//usertitles_id\": 0,\r\n        \"//date_format\": null,\r\n        \"//number_format\": null,\r\n        \"//names_format\": null,\r\n        \"//csv_delimiter\": null,\r\n        \"//is_ids_visible\": null,\r\n        \"//use_flat_dropdowntree\": null,\r\n        \"//use_flat_dropdowntree_on_search_result\": null,\r\n        \"//show_jobs_at_login\": null,\r\n        \"//priority_1\": null,\r\n        \"//priority_2\": null,\r\n        \"//priority_3\": null,\r\n        \"//priority_4\": null,\r\n        \"//priority_5\": null,\r\n        \"//priority_6\": null,\r\n        \"//followup_private\": null,\r\n        \"//task_private\": null,\r\n        \"//default_requesttypes_id\": null,\r\n        \"//password_forget_token\": null,\r\n        \"//password_forget_token_date\": null,\r\n        \"//user_dn\": null,\r\n        \"//registration_number\": \"\",\r\n        \"//show_count_on_tabs\": null,\r\n        \"//refresh_views\": null,\r\n        \"//set_default_tech\": null,\r\n        \"//personal_token_date\": null,\r\n        \"//api_token_date\": \"2023-12-06 03:20:22\",\r\n        \"//cookie_token_date\": \"2023-12-06 03:04:46\",\r\n        \"//display_count_on_home\": null,\r\n        \"//notification_to_myself\": null,\r\n        \"//duedateok_color\": null,\r\n        \"//duedatewarning_color\": null,\r\n        \"//duedatecritical_color\": null,\r\n        \"//duedatewarning_less\": null,\r\n        \"//duedatecritical_less\": null,\r\n        \"//duedatewarning_unit\": null,\r\n        \"//duedatecritical_unit\": null,\r\n        \"//display_options\": null,\r\n        \"//is_deleted_ldap\": 0,\r\n        \"//pdffont\": null,\r\n        \"//picture\": null,\r\n        \"//begin_date\": null,\r\n        \"//end_date\": null,\r\n        \"//keep_devices_when_purging_item\": null,\r\n        \"//privatebookmarkorder\": null,\r\n        \"//backcreated\": null,\r\n        \"//task_state\": null,\r\n        \"//palette\": null,\r\n        \"//page_layout\": null,\r\n        \"//fold_menu\": null,\r\n        \"//fold_search\": null,\r\n        \"//savedsearches_pinned\": null,\r\n        \"//timeline_order\": null,\r\n        \"//itil_layout\": null,\r\n        \"//richtext_layout\": null,\r\n        \"//set_default_requester\": null,\r\n        \"//lock_autolock_mode\": null,\r\n        \"//lock_directunlock_notification\": null,\r\n        \"//date_creation\": \"2023-12-05 04:11:03\",\r\n        \"//highcontrast_css\": null,\r\n        \"//plannings\": null,\r\n        \"//sync_field\": null,\r\n        \"//groups_id\": 0,\r\n        \"//users_id_supervisor\": 0,\r\n        \"//timezone\": null,\r\n        \"//default_dashboard_central\": null,\r\n        \"//default_dashboard_assets\": null,\r\n        \"//default_dashboard_helpdesk\": null,\r\n        \"//default_dashboard_mini_ticket\": null,\r\n        \"//default_central_tab\": null,\r\n        \"//nickname\": null,\r\n        \"//timeline_action_btn_layout\": null,\r\n        \"//timeline_date_format\": null\r\n    }\r\n }"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/User",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "add email",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\": {\r\n        \"users_id\": 135,\r\n        \"is_default\": 0,\r\n        \"is_dynamic\": 0,\r\n        \"email\": \"jakeroopy@yahoo.com.my2\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/UserEmail",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"UserEmail"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "request password forgot token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"// pm.request.headers.add({\r",
+							"//     key:\"App-Token\",\r",
+							"//     value: pm.collectionVariables.get(\"app_token\")\r",
+							"// });\r",
+							"// pm.request.headers.add({\r",
+							"//     key:\"Session-Token\",\r",
+							"//     value: pm.collectionVariables.get(\"session_token\")\r",
+							"// }) \r",
+							"\r",
+							"// var url = pm.collectionVariables.get(\"baseUrl\" + \"/User\")\r",
+							"\r",
+							"// pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"//     console.log(response.json());\r",
+							"// });\r",
+							"\r",
+							"\r",
+							"// var jsonData = JSON.parse(responseBody);\r",
+							"// pm.collectionVariables.set(\"password_forget_token\", jsonData.password_forget_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jakeroopy@yahoo.com\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/lostPassword",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lostPassword"
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"user_id\", \"135\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"password_forget_token\", jsonData.password_forget_token);\r",
+							"\r",
+							"console.log(\"password_forget_token: \" + jsonData.password_forget_token)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Range",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Range",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/User/{{user_id}}?expand_dropdowns=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"User",
+						"{{user_id}}"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true"
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "get_sha1 ",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "with_devices",
+							"value": "[Computer, NetworkEquipment, Peripheral, Phone, Printer]",
+							"disabled": true
+						},
+						{
+							"key": "with_disks",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_softwares",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_connections",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_infocoms",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_contracts",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_documents",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_tickets",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_problems",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_changes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_notes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_logs",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "reset password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jakeroopy@yahoo.com\",\r\n    \"password_forget_token\": \"{{password_forget_token}}\",\r\n    \"password\": \"qwer1234\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/lostPassword",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lostPassword"
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "kill session",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/killSession",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"killSession"
+					]
+				},
+				"description": "Destroy a session identified by a session token."
+			},
+			"response": []
+		},
+		{
+			"name": "get my profiles",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/getMyProfiles",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"getMyProfiles"
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get ticket",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"ticket_id\", \"7\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/{{ticket_id}}?expand_dropdowns=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"{{ticket_id}}"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true"
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"description": "Show relations of the item in a links attribute. Optional.",
+							"disabled": true
+						},
+						{
+							"key": "get_sha1",
+							"value": "true",
+							"description": "Retrieve historical. Optional.",
+							"disabled": true
+						},
+						{
+							"key": "with_devices",
+							"value": "[Computer, NetworkEquipment, Peripheral, Phone, Printer]",
+							"disabled": true
+						},
+						{
+							"key": "with_disks",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_softwares",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_connections",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_infocoms",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_contracts",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_documents",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_tickets",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_problems",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_changes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_notes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_logs",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get ticket Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"ticket_id\", \"7\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/{{ticket_id}}?expand_dropdowns=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"{{ticket_id}}"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true"
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"description": "Show relations of the item in a links attribute. Optional.",
+							"disabled": true
+						},
+						{
+							"key": "get_sha1",
+							"value": "true",
+							"description": "Retrieve historical. Optional.",
+							"disabled": true
+						},
+						{
+							"key": "with_devices",
+							"value": "[Computer, NetworkEquipment, Peripheral, Phone, Printer]",
+							"disabled": true
+						},
+						{
+							"key": "with_disks",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_softwares",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_connections",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_infocoms",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_contracts",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_documents",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_tickets",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_problems",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_changes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_notes",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_logs",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "/Document_Item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/Document_Item",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"Document_Item"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "/Document_Item Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/Document_Item",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"Document_Item"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "send-image",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": {\n        \"name\": \"New Item 16\",\n        \"content:\": \"This is a new item\",\n        \"_users_id_requester\": \"135\",\n        \"type\": \"2\",\n        \"status\": \"1\",\n        \"date\": \"2024-01-04 11:31:24\",\n        \"itilcategories_id\": \"3\",\n        \"urgency\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "Document_Item all",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/Document_Item",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"Document_Item"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "/Document_Item Copy 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": {\n    \"items_id\": 99,\n    \"itemtype\": \"Ticket\",\n    \"type\": 1,\n    \"withtemplate\": false,\n    \"items\": [\n      {\n        \"itemtype\": \"Document\",\n        \"items_id\": 44\n      }\n    ]\n  }\n}"
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/Document_Item",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"Document_Item"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "/Document_Item Copy 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": {\n    \"items_id\": 99,\n    \"itemtype\": \"Ticket\",\n    \"type\": 1,\n    \"withtemplate\": false,\n    \"items\": [\n      {\n        \"itemtype\": \"Document\",\n        \"items_id\": 44\n      }\n    ]\n  }\n}"
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/Document_Item",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"Document_Item"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "ITILFollowup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://itsmdev.skmagic.com.my/apirest.php/Ticket/12/ITILFollowup/",
+					"protocol": "http",
+					"host": [
+						"itsmdev",
+						"skmagic",
+						"com",
+						"my"
+					],
+					"path": [
+						"apirest.php",
+						"Ticket",
+						"12",
+						"ITILFollowup",
+						""
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get all tickets",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Range",
+						"value": "bytes 0-499/10000",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": {\n        \"range\": \"0-30\"\n        \n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						""
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "Document_Item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/21/Document_Item/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"21",
+						"Document_Item",
+						""
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "Document_Item Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/21/Document_Item/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"21",
+						"Document_Item",
+						""
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "Document_Item Copy 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/21/Document_Item/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"21",
+						"Document_Item",
+						""
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "Document_Item Copy 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket/21/Document_Item/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket",
+						"21",
+						"Document_Item",
+						""
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "create_ticket",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": {\n        \"name\": \"New Item 16\",\n        \"content:\": \"This is a new item\",\n        \"_users_id_requester\": \"135\",\n        \"type\": \"2\",\n        \"status\": \"1\",\n        \"date\": \"2024-01-04 11:31:24\",\n        \"itilcategories_id\": \"3\",\n        \"urgency\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "create_ticket_img",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": {\n        \"name\": \"New Item 16\",\n        \"content:\": \"This is a new item\",\n        \"_users_id_requester\": \"135\",\n        \"type\": \"2\",\n        \"status\": \"1\",\n        \"date\": \"2024-01-04 11:31:24\",\n        \"itilcategories_id\": \"3\",\n        \"urgency\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Ticket",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Ticket"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Range",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Range",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/User",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order ",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get user categories",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Range",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Range",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/UserCategory",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"UserCategory"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order ",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get ticket categories",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Range",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Range",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/UserCategory",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"UserCategory"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "100-135",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "order ",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "searchText",
+							"value": "[{\"key\": \"id\",\"value\": \"135\"}]",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "get user emails",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"user_id\", \"135\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//pm.collectionVariables.set(\"password_forget_token\", jsonData.password_forget_token);\r",
+							"\r",
+							"//console.log(\"password_forget_token: \" + jsonData.password_forget_token);\r",
+							"\r",
+							"//var email_address = jsonData[\"fields\"][\"email\"];\r",
+							"//console.log(\"user emails: \" + jsonData[\"emails\"]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/UserEmail?searchText[users_id]={{user_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"UserEmail"
+					],
+					"query": [
+						{
+							"key": "expand_dropdowns",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "only_id",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "range",
+							"value": "0-49",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "DESC",
+							"disabled": true
+						},
+						{
+							"key": "is_deleted",
+							"value": "true:",
+							"disabled": true
+						},
+						{
+							"key": "with_networkports",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "add_keys_names",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "searchText[users_id]",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "user_token SIIPvNyOu2eBqeQGL6lxmjckzSemUsrcZ8l0Jbvb",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "App-Token",
+						"value": "{{app_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Session-Token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\": {\r\n        \"id\": 135,\r\n        \"//name\": \"111180572\",\r\n        \"//mobile\": \"0123530000\",\r\n        \"//usercategories_id\": 1,\r\n        \"is_default\": \"1\",\r\n        \"is_dynamic\": \"0\",        \r\n        \"email\": \"jakeroopy@yahoo.com.my\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/User",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "get_hateoas",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Return all the profiles associated to logged user."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "inherit"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://seusite.com.br/apirest.php"
+		},
+		{
+			"key": "app_token",
+			"value": "TOKENAPP",
+			"type": "string"
+		},
+		{
+			"key": "session_token",
+			"value": "SESSIONTOKEN"
+		},
+		{
+			"key": "ticket_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "password_forget_token",
+			"value": ""
+		}
+	]
+}

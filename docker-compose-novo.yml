@@ -1,0 +1,132 @@
+version: '3.3'
+
+services:
+  api:
+    container_name: evolution_api
+    image: atendai/evolution-api:v1.7.5
+    restart: always
+    ports:
+      - 3333:8080
+    volumes:
+      - evolution_instances:/evolution/instances
+      - evolution_store:/evolution/store
+    environment:
+      - SERVER_URL=http://localhost:3333
+      - AUTHENTICATION_TYPE=apikey
+      - AUTHENTICATION_API_KEY=0417bf43b0a8969bd6685bcb49d783df
+      - AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES=true
+      - STORE_MESSAGES=true
+      - STORE_MESSAGE_UP=true
+      - STORE_CONTACTS=true
+      - STORE_CHATS=true
+      - LOG_LEVEL=ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS
+      - DEL_INSTANCE=false
+      - WEBHOOK_GLOBAL_ENABLED=false
+      - WEBHOOK_GLOBAL_URL=http://localhost:3333
+      - WEBHOOK_EVENTS_QRCODE_UPDATED=true
+      - WEBHOOK_EVENTS_MESSAGES_UPSERT=true
+      - WEBHOOK_EVENTS_MESSAGES_UPDATE=true
+      - WEBHOOK_EVENTS_CONTACTS_SET=true
+      - WEBHOOK_EVENTS_CONTACTS_UPSERT=true
+      - WEBHOOK_EVENTS_CONTACTS_UPDATE=true
+      - WEBHOOK_EVENTS_PRESENCE_UPDATE=true
+      - WEBHOOK_EVENTS_CHATS_SET=true
+      - WEBHOOK_EVENTS_CHATS_UPSERT=true
+      - WEBHOOK_EVENTS_CHATS_UPDATE=true
+      - WEBHOOK_EVENTS_CHATS_DELETE=true
+      - WEBHOOK_EVENTS_GROUPS_UPSERT=true
+      - WEBHOOK_EVENTS_GROUPS_UPDATE=true
+      - WEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE=true
+      - WEBHOOK_EVENTS_CONNECTION_UPDATE=true
+      - CONFIG_SESSION_PHONE_CLIENT=Evolution
+      - CONFIG_SESSION_PHONE_NAME=Chrome
+      - DATABASE_ENABLED=false
+      - DATABASE_PROVIDER=none
+
+  typebot-db:
+    image: postgres:16
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=typebot
+      - POSTGRES_PASSWORD=typebot
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -d typebot -U postgres' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - typebot_network
+
+  typebot-redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ 'CMD-SHELL', 'redis-cli ping | grep PONG' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - typebot_network
+
+  typebot-builder:
+    image: baptistearno/typebot-builder:latest
+    restart: always
+    ports:
+      - '3100:3000'
+    depends_on:
+      typebot-db:
+        condition: service_healthy
+      typebot-redis:
+        condition: service_healthy
+    env_file:
+      - typebot.env
+    networks:
+      - typebot_network
+      - evolution_network
+
+  typebot-viewer:
+    image: baptistearno/typebot-viewer:latest
+    restart: always
+    ports:
+      - '3101:3000'
+    depends_on:
+      typebot-db:
+        condition: service_healthy
+    env_file:
+      - typebot.env
+    networks:
+      - typebot_network
+      - evolution_network
+
+  minio:
+    image: minio/minio
+    restart: always
+    ports:
+      - '9090:9000'
+      - '9091:9001'
+    volumes:
+      - s3_data:/data
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=minio123
+    command: server /data --console-address ":9001"
+    networks:
+      - typebot_network
+
+networks:
+  typebot_network:
+    driver: bridge
+  evolution_network:
+    external: true
+    name: evolutionapi_default
+
+volumes:
+  evolution_instances:
+  evolution_store:
+  postgres_data:
+  redis_data:
+  s3_data:
